@@ -8,6 +8,10 @@
     { id: 1, name: "Sad", color: "blue", count: 0, src: sad },
     { id: 2, name: "Angry", color: "red", count: 0, src: angry },
   ];
+
+  function handleClick(emoji) {
+    emojis[emoji.id].count++;
+  }
 </script>
 
 <h1>Welcome to Svelte</h1>
@@ -17,8 +21,8 @@
     {@const count = emoji.count}
     {@const name = emoji.name}
     <div class="emojiButton">
-      <img src={emoji.src} alt="name" />
-      <button class={emoji.color}>
+      <img class="emojiImg" src={emoji.src} alt="name" />
+      <button class={emoji.color} on:click={() => handleClick(emoji)}>
         {emoji.name} - clicked {count} {count === 1 ? "time" : "times"}</button
       >
     </div>
