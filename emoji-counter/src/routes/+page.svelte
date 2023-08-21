@@ -9,17 +9,22 @@
     { id: 2, name: "Angry", color: "red", count: 0, src: angry },
   ];
 
-  let disabled = false;
+  $: disabled = totalCount >= 7 ? true : false;
 
   $: totalCount = emojis[0].count + emojis[1].count + emojis[2].count;
   //   $: totalCount = emojis.reduce((total, emoji) => total + emoji.count, 0
 
-  $: if (totalCount >= 7) {
-    disabled = true;
-  }
-
   function handleClick(emoji) {
     emojis[emoji.id].count++;
+  }
+
+  function resetCounts() {
+    emojis.forEach((emoji) => {
+      emoji.count = 0;
+    });
+
+    // Trigger reactive update
+    emojis = [...emojis];
   }
 </script>
 
@@ -47,6 +52,10 @@
     ? `<b>Error 500</b> - Emotion Overload!!!!`
     : `Total Emotions = ${totalCount}`}
 </p>
+
+{#if disabled}
+  <button on:click={resetCounts} class="reset">Reset</button>
+{/if}
 
 <style>
   .wrapper {
