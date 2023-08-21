@@ -9,12 +9,16 @@
     { id: 2, name: "Angry", color: "red", count: 0, src: angry },
   ];
 
+  $: totalCount = emojis[0].count + emojis[1].count + emojis[2].count;
+  //   $: totalCount = emojis.reduce((total, emoji) => total + emoji.count, 0
+
   function handleClick(emoji) {
     emojis[emoji.id].count++;
   }
 </script>
 
 <h1>Welcome to Svelte</h1>
+<p class="mainText">How are we feeling today?</p>
 <div class="wrapper">
   <!-- {#each emojis as {id, name, color, count}, index (id)} -->
   {#each emojis as emoji}
@@ -28,6 +32,7 @@
     </div>
   {/each}
 </div>
+<p>Total Emotions = {totalCount}</p>
 
 <style>
   .wrapper {
