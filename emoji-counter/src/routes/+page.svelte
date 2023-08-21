@@ -11,7 +11,13 @@
 </script>
 
 <h1>Welcome to Svelte</h1>
-<p>Emoji Counter goes here!</p>
+<!-- {#each emojis as {id, name, color, count}, index (id)} -->
+{#each emojis as emoji}
+  {@const count = emoji.count}
+  {@const name = emoji.name}
+  <img src={emoji.src} alt="name" />
+  {name} - {count}
+{/each}
 
 <style>
   .wrapper {
