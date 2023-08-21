@@ -11,13 +11,19 @@
 </script>
 
 <h1>Welcome to Svelte</h1>
-<!-- {#each emojis as {id, name, color, count}, index (id)} -->
-{#each emojis as emoji}
-  {@const count = emoji.count}
-  {@const name = emoji.name}
-  <img src={emoji.src} alt="name" />
-  {name} - {count}
-{/each}
+<div class="wrapper">
+  <!-- {#each emojis as {id, name, color, count}, index (id)} -->
+  {#each emojis as emoji}
+    {@const count = emoji.count}
+    {@const name = emoji.name}
+    <div class="emojiButton">
+      <img src={emoji.src} alt="name" />
+      <button class={emoji.color}>
+        {emoji.name} - clicked {count} {count === 1 ? "time" : "times"}</button
+      >
+    </div>
+  {/each}
+</div>
 
 <style>
   .wrapper {
