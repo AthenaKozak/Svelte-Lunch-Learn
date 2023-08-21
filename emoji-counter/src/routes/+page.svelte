@@ -9,8 +9,14 @@
     { id: 2, name: "Angry", color: "red", count: 0, src: angry },
   ];
 
+  let disabled = false;
+
   $: totalCount = emojis[0].count + emojis[1].count + emojis[2].count;
   //   $: totalCount = emojis.reduce((total, emoji) => total + emoji.count, 0
+
+  $: if (totalCount >= 7) {
+    disabled = true;
+  }
 
   function handleClick(emoji) {
     emojis[emoji.id].count++;
@@ -26,13 +32,21 @@
     {@const name = emoji.name}
     <div class="emojiButton">
       <img class="emojiImg" src={emoji.src} alt="name" />
-      <button class={emoji.color} on:click={() => handleClick(emoji)}>
+      <button
+        class={emoji.color}
+        on:click={() => handleClick(emoji)}
+        {disabled}
+      >
         {emoji.name} - clicked {count} {count === 1 ? "time" : "times"}</button
       >
     </div>
   {/each}
 </div>
-<p>Total Emotions = {totalCount}</p>
+<p>
+  {@html disabled
+    ? `<b>Error 500</b> - Emotion Overload!!!!`
+    : `Total Emotions = ${totalCount}`}
+</p>
 
 <style>
   .wrapper {
